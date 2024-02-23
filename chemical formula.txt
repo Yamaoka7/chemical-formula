@@ -1,0 +1,31 @@
+def count_atoms(formula):
+    atoms = {}
+    current_atom = ''
+    current_count = ''
+    for char in formula:
+        if char.isupper():
+            if current_atom:
+                if current_count:
+                    count = int(current_count)
+                else:
+                    count = 1
+                atoms[current_atom] = atoms.get(current_atom, 0) + count
+                current_count = ''
+            current_atom = char
+        elif char.islower():
+            current_atom += char
+        elif char.isdigit():
+            current_count += char
+    # Add the last atom
+    if current_atom:
+        if current_count:
+            count = int(current_count)
+        else:
+            count = 1
+        atoms[current_atom] = atoms.get(current_atom, 0) + count
+    return atoms
+
+# Example usage:
+chemical_formula = "H2O"
+atom_count = count_atoms(chemical_formula)
+print("Atom count:", atom_count)
